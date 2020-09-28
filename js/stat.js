@@ -6,9 +6,6 @@ var CLOUD_X = 100;
 var CLOUD_Y = 10;
 var GAP = 10;
 var FONT_GAP = 15;
-var TEXT_WIDTH = 50;
-var BAR_HEIGHT = 20;
-var barWidth = CLOUD_WIDTH - GAP - TEXT_WIDTH - GAP;
 
 var HIST_HEIGHT = 150;
 var BAR_WIDTH = 40;
@@ -52,16 +49,18 @@ window.renderStatistics = function (ctx, players, times) {
   ctx.font = '16px PT Mono';
   ctx.textBaseline = 'hanging';
   ctx.fillText('Ура вы победили!', CLOUD_X + 20, CLOUD_Y + 20);
-  ctx.fillText('Список результатов:', CLOUD_X + 20, CLOUD_Y + 40 );
+  ctx.fillText('Список результатов:', CLOUD_X + 20, CLOUD_Y + 40);
 
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < players.length; i++) {
+
     ctx.fillText(
-      players[i],
+        players[i],
         CLOUD_X + HIST_GAP + (BAR_GAP + BAR_WIDTH) * i,
         CLOUD_Y + CLOUD_HEIGHT - HIST_GAP + FONT_GAP * 1.5
     );
+
     ctx.fillRect(
         CLOUD_X + HIST_GAP + (BAR_GAP + BAR_WIDTH) * i,
         CLOUD_Y + CLOUD_HEIGHT - HIST_GAP,
@@ -69,7 +68,7 @@ window.renderStatistics = function (ctx, players, times) {
         -(HIST_HEIGHT * times[i]) / maxTime
     );
     ctx.fillText(
-      Math.floor(times[i]),
+        Math.floor(times[i]),
         CLOUD_X + HIST_GAP + (BAR_GAP + BAR_WIDTH) * i,
         CLOUD_Y + CLOUD_HEIGHT - HIST_GAP - (HIST_HEIGHT * times[i]) / maxTime - FONT_GAP
     );
