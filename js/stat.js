@@ -15,7 +15,7 @@ var HIST_GAP = 40;
 var getRandomInt = function (min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 var getRandomSaturation = function (hue, lightness) {
