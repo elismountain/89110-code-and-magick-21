@@ -29,7 +29,8 @@ var createWizard = function () {
   return wizard;
 };
 
-var wizards = []; //создаю пустой массив
+// создаю пустой массив
+var wizards = [];
 
 // создаю цикл до 4 волшебников
 for (var i = 0; i < NUM_WIZARDS; i++) {
