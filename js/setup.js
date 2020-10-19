@@ -10,6 +10,8 @@ var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', '�
 var WIZARD_COAT = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var WIZARD_EYES = ['black', 'red', 'blue', 'yellow', 'green'];
 var NUM_WIZARDS = 4;
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
 
 var getRandomElement = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -60,3 +62,70 @@ for (i = 0; i < wizards.length; i++) {
 }
 
 similarListElement.appendChild(fragment);
+
+// 9. Учебный проект: одеть Надежду
+
+var setupWindowOpen = document.querySelector('.setup-open');
+var setupWindowClose = document.querySelector('.setup-close');
+setupWindowClose.setAttribute('tabindex', 0);
+var setupUserName = document.querySelector('.setup-user-name');
+setupUserName.setAttribute('minlength', 2);
+setupUserName.setAttribute('maxlength', 25);
+var setupOpenIcon = setupWindowOpen.querySelector('.setup-open-icon');
+setupOpenIcon.setAttribute('tabindex', 0);
+
+
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    if (evt.target.className !== 'setup-user-name') {
+      closePopup();
+    }
+  }
+};
+
+var openPopup = function () {
+  userDialog.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+  userDialog.addEventListener('click');
+};
+
+setupWindowOpen.addEventListener('click', function () {
+  openPopup();
+});
+
+setupWindowOpen.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+});
+
+var closePopup = function () {
+  userDialog.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+setupWindowClose.addEventListener('click', function () {
+  closePopup();
+});
+
+setupWindowClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
+
+var onUserInputValidity = function () {
+  if (setupUserName.validity.tooShort) {
+    setupUserName.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+  } else if (setupUserName.validity.tooLong) {
+    setupUserName.setCustomValidity('Имя не должно превышать 25-ти символов');
+  } else if (setupUserName.validity.valueMissing) {
+    setupUserName.setCustomValidity('Обязательное поле');
+  } else {
+    setupUserName.setCustomValidity(' ');
+  }
+
+  setupUserName.reportValidity();
+};
+
+setupUserName.addEventListener(`invalid`, onUserInputValidity);
